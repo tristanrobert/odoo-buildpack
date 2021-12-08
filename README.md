@@ -1,0 +1,2 @@
+# odoo-buildpack
+Odoo buildpack
