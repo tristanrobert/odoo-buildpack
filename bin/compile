@@ -1,0 +1,57 @@
+#!/bin/bash
+# usage: bin/compile <build-dir> <cache-dir> <env-dir>
+
+set -eo pipefail
+
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+ENV_DIR=${3:-}
+buildpack="$(cd -P "$(dirname "$0")" && pwd)"
+
+source "${buildpack}/common.sh"
+
+if [ -n "$BUILDPACK_DEBUG" ]; then
+  set -x
+fi
+
+TMP_PATH="$BUILD_DIR/tmp"
+mkdir -p "${BUILD_DIR}/bin" "${CACHE_DIR}/dist" "${TMP_PATH}"
+export PATH="$BUILD_DIR/bin:$PATH"
+
+STACK="${STACK:-scalingo-20}"
+
+start "Install Odoo"
+
+if [ -d "/usr/bin/odoo" ]; then
+  warn "Odoo is already installed"
+  apt-get remove --purge odoo
+  warn "Old Odoo installation is removed"
+fi
+info "Fresh new Odoo installation"
+if [[ -f "${ENV_DIR}/wkhtmltopdf_VERSION" ]]; then
+  wkhtmltopdf_VERSION=$(cat "${ENV_DIR}/wkhtmltopdf_VERSION")
+else
+  wkhtmltopdf_VERSION=0.12.6
+fi
+install_wkhtmltopdf "${wkhtmltopdf_VERSION}"
+if [[ -f "${ENV_DIR}/ODOO_VERSION" ]]; then
+  ODOO_VERSION=$(cat "${ENV_DIR}/ODOO_VERSION")
+else
+  ODOO_VERSION=15.0
+fi
+install_odoo "${ODOO_VERSION}"
+finished
+
+start "Building run"
+cp "${buildpack}/wait-for-psql.py" "${BUILD_DIR}/bin/wait-for-psql.py"
+chmod +x "${BUILD_DIR}/bin/wait-for-psql.py"
+cp "${buildpack}/init-admin-pwd.py" "${BUILD_DIR}/bin/init-admin-pwd.py"
+chmod +x "${BUILD_DIR}/bin/init-admin-pwd.py"
+cp "${buildpack}/run.sh" "${BUILD_DIR}/bin/run"
+chmod +x "${BUILD_DIR}/bin/run"
+finished
+
+step "Cleaning up tmp files"
+rm -rf "${TMP_PATH}"
+
+finished

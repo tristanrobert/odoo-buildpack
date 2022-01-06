@@ -1,0 +1,40 @@
+version: '3.8'
+
+services: 
+    postgres: 
+        image: postgres
+        networks: 
+            - odoo_network
+        env_file: .env
+        restart: 'always'
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+            - ./postgresql/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh:ro
+    smtp:
+        image: mailhog/mailhog
+        ports:
+            - 1025:1025
+            - 8025:8025
+    odoo:
+        build: .
+        networks: 
+            - odoo_network
+        volumes: 
+            - .:/buildpack
+            - cache:/cache
+            - build:/build
+            - env:/env
+            - app:/app
+        env_file: .env
+        ports: 
+            - 8080:8080
+        depends_on:
+            - postgres
+volumes: 
+    postgres_data:
+    cache:
+    build:
+    env:
+    app:
+networks: 
+    odoo_network:

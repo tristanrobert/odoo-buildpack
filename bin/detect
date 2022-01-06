@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Always accept the Odoo buildpack
+echo "Odoo"
+exit 0
