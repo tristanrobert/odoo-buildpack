@@ -49,7 +49,7 @@ function install_odoo() {
     ${CURL} -o "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" "https://nightly.odoo.com/${ODOO_VERSION}/nightly/src/odoo_${ODOO_VERSION}.latest.tar.gz"
   fi  
   mkdir "${CACHE_DIR}/dist/odoo"  
-  tar -xvf "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" -C "${CACHE_DIR}/dist/odoo" --strip-components=1
+  tar -zxf "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" -C "${CACHE_DIR}/dist/odoo" --strip-components=1
   mv "${CACHE_DIR}/dist/odoo" "${BUILD_DIR}"
   cd "${BUILD_DIR}/odoo" || return
   pip3 install setuptools wheel
