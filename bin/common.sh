@@ -40,32 +40,19 @@ function indent() {
   esac
 }
 
-function install_wkhtmltopdf() {
-  wkhtmltopdf_VERSION="$1"
-  step "Fetching wkhtmltopdf ${wkhtmltopdf_VERSION}"
-  if [ -f "${CACHE_DIR}/dist/wkhtmltox_${wkhtmltopdf_VERSION}-1.focal_amd64.deb" ]; then
-    info "File already downloaded"
-  else
-    ${CURL} -o "${CACHE_DIR}/dist/wkhtmltox_${wkhtmltopdf_VERSION}-1.focal_amd64.deb" "https://github.com/wkhtmltopdf/packaging/releases/download/${wkhtmltopdf_VERSION}-1/wkhtmltox_${wkhtmltopdf_VERSION}-1.focal_amd64.deb"
-  fi
-  ${APT_GET} install -y --no-install-recommends "${CACHE_DIR}/dist/wkhtmltox_${wkhtmltopdf_VERSION}-1.focal_amd64.deb"
-  finished
-}
-
 function install_odoo() {  
   ODOO_VERSION="$1"
   step "Fetching odoo latest nightly ${ODOO_VERSION}"
-  if [ -f "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest_all.deb" ]; then
+  if [ -f "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" ]; then
     info "File already downloaded"
   else
-    ${CURL} -o "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest_all.deb" "https://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.latest_all.deb"
-  fi
-  # fix error in scalingo-20
-  sed -i 's/bionic-pgdg/focal-pgdg/g' /etc/apt/sources.list
-  ${APT_GET} update 
-  ${APT_GET} install --no-install-recommends -y postgresql-client
-  ${APT_GET} full-upgrade -y
-  ${APT_GET} install -y --no-install-recommends "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest_all.deb"
-  sed -i 's/;addons/addons/g' /etc/odoo/odoo.conf
+    ${CURL} -o "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" "https://nightly.odoo.com/${ODOO_VERSION}/nightly/src/odoo_${ODOO_VERSION}.latest.tar.gz"
+  fi  
+  mkdir "${CACHE_DIR}/dist/odoo"  
+  tar -xvf "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" -C "${CACHE_DIR}/dist/odoo" --strip-components=1
+  mv "${CACHE_DIR}/dist/odoo" "${BUILD_DIR}"
+  cd "${BUILD_DIR}/odoo" || return
+  pip3 install setuptools wheel
+  pip3 install -r requirements.txt
   finished
 }

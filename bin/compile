@@ -28,12 +28,6 @@ if [ -d "/usr/bin/odoo" ]; then
   warn "Old Odoo installation is removed"
 fi
 info "Fresh new Odoo installation"
-if [[ -f "${ENV_DIR}/wkhtmltopdf_VERSION" ]]; then
-  wkhtmltopdf_VERSION=$(cat "${ENV_DIR}/wkhtmltopdf_VERSION")
-else
-  wkhtmltopdf_VERSION=0.12.6
-fi
-install_wkhtmltopdf "${wkhtmltopdf_VERSION}"
 if [[ -f "${ENV_DIR}/ODOO_VERSION" ]]; then
   ODOO_VERSION=$(cat "${ENV_DIR}/ODOO_VERSION")
 else

@@ -55,8 +55,8 @@ bash buildpack/bin/release
 Run Odoo server:
 
 ```shell
-export PATH=/build/bin:$PATH
-run /build/bin/run
+export PATH=/build/odoo/bin:$PATH
+/build/bin/run
 ```
 
 Check [http://localhost:8080](http://localhost:8080).
