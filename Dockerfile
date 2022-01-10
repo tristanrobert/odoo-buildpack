@@ -14,7 +14,7 @@ RUN curl -sLO https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-
 WORKDIR /build
 RUN pip3 install setuptools wheel
 RUN pip3 install -r requirements.txt 
-RUN rm -rf /app/*.*
+RUN rm -rf /app/*
 RUN cp -a /build/. /app
 WORKDIR /app
 

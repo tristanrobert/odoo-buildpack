@@ -52,11 +52,13 @@ bash buildpack/bin/compile /build /cache /env
 bash buildpack/bin/release
 ```
 
-Run Odoo server:
+Run Odoo server (requires a db):
 
 ```shell
-export PATH=/build/bin:$PATH
-/build/bin/run
+rm -rf /app/*
+cp -a /build/. /app
+export PATH=/app/bin:$PATH
+/app/bin/run
 ```
 
 Check [http://localhost:8080](http://localhost:8080).
@@ -65,7 +67,7 @@ You can also use docker-compose in order to test with a complete stack (db):
 
 ```shell
 docker-compose up --build -d
-docker-compos down -v
+docker-compose down -v
 ```
 
 `.env.sample` is configured to work with this stack.
