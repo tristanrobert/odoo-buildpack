@@ -52,6 +52,7 @@ function install_odoo() {
   tar -zxf "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" -C "${CACHE_DIR}/dist/odoo" --strip-components=1
   mv "${CACHE_DIR}/dist/odoo" "${BUILD_DIR}"
   cd "${BUILD_DIR}/odoo" || return
+  apt-get update && apt-get full-upgrade -y
   pip3 install setuptools wheel
   pip3 install -r requirements.txt
   finished
