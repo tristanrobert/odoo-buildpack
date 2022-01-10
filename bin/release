@@ -5,8 +5,7 @@ cat << EOF
 addons:
  - scalingo-postgresql
 config_vars:
-  PATH: "/app/odoo/bin:/usr/local/bin:/usr/bin:/bin"
-  PYTHONPATH: "/app/odoo:$PYTHONPATH"
+  PATH: "/app/bin:/usr/local/bin:/usr/bin:/bin"
 default_process_types:
   web: /app/bin/run
 EOF

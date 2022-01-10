@@ -2,7 +2,7 @@
 # usage: /app/bin/run
 
 set -e
-export PYTHONPATH="/app/odoo:$PYTHONPATH"
+export PYTHONPATH="/app:$PYTHONPATH"
 DB_ARGS=()
 DB_ARGS+=("--db_host")
 DB_ARGS+=("$DB_HOST")
@@ -15,7 +15,7 @@ DB_ARGS+=("$DB_PASSWORD")
 python3 /app/bin/wait-for-psql.py "${DB_ARGS[@]}" --timeout=30
 ODOO_ARGS=()
 ODOO_ARGS+=("--addons-path")
-ODOO_ARGS+=("/app/odoo/odoo/addons")
+ODOO_ARGS+=("/app/odoo/addons")
 ODOO_ARGS+=("--http-port")
 ODOO_ARGS+=("$PORT")
 if [[ "$PROXY_MODE" == "true" ]]; then
@@ -44,4 +44,4 @@ if [[ "$SMTP_SSL" == "true" ]]; then
  SMTP_ARGS+=("--smtp-ssl")
 fi
 ODOO_ARGS+=("${SMTP_ARGS[@]}")
-exec python3 /app/odoo/setup/odoo "${ODOO_ARGS[@]}"
+exec python3 /app/setup/odoo "${ODOO_ARGS[@]}"

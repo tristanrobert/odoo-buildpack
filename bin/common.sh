@@ -47,13 +47,11 @@ function install_odoo() {
     info "File already downloaded"
   else
     ${CURL} -o "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" "https://nightly.odoo.com/${ODOO_VERSION}/nightly/src/odoo_${ODOO_VERSION}.latest.tar.gz"
-  fi  
-  mkdir "${CACHE_DIR}/dist/odoo"  
+  fi
+  if [ ! -d "${CACHE_DIR}/dist/odoo" ]; then
+    mkdir "${CACHE_DIR}/dist/odoo"
+  fi
   tar -zxf "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" -C "${CACHE_DIR}/dist/odoo" --strip-components=1
-  mv "${CACHE_DIR}/dist/odoo" "${BUILD_DIR}"
-  cd "${BUILD_DIR}/odoo" || return
-  apt-get update && apt-get full-upgrade -y && apt-get install -y python3-dev python3-venv python3-pip libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev libpq-dev
-  python3 -m pip install --upgrade pip setuptools wheel
-  pip3 install -r requirements.txt
+  cp -a "${CACHE_DIR}/dist/odoo/." "${BUILD_DIR}"
   finished
 }
