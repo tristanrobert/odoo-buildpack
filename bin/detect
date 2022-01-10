@@ -5,7 +5,6 @@ function version_le() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" 
 if version_le "$(python3 --version 2>&1 | perl -pe 's/python *//i')" "3.7.0" ; then
   echo "Odoo requires python3  > 3.7 installed"
   exit 1
-else
-  echo "Odoo can be installed since python > 3.7"
-  exit 0
 fi
+echo "Odoo"
+exit 0
