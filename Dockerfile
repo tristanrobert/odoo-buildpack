@@ -17,6 +17,7 @@ RUN pip3 install -r requirements.txt
 RUN rm -rf /app/*
 RUN cp -a /build/. /app
 WORKDIR /app
+RUN export PYTHONPATH="/app:$PYTHONPATH"
 
 EXPOSE ${PORT}
 
