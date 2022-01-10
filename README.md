@@ -55,7 +55,7 @@ bash buildpack/bin/release
 Run Odoo server:
 
 ```shell
-export PATH=/build/odoo/bin:$PATH
+export PATH=/build/bin:$PATH
 /build/bin/run
 ```
 

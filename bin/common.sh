@@ -52,6 +52,7 @@ function install_odoo() {
     mkdir "${CACHE_DIR}/dist/odoo"
   fi
   tar -zxf "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" -C "${CACHE_DIR}/dist/odoo" --strip-components=1
+  sed -i 's/python-ldap/#python-ldap/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
   cp -a "${CACHE_DIR}/dist/odoo/." "${BUILD_DIR}"
   finished
 }
