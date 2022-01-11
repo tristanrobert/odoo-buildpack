@@ -18,7 +18,7 @@ TMP_PATH="$BUILD_DIR/tmp"
 mkdir -p "${BUILD_DIR}/bin" "${CACHE_DIR}/dist" "${TMP_PATH}"
 export PATH="$BUILD_DIR/bin:$PATH"
 
-STACK="${STACK:-scalingo-20}"
+STACK="${STACK:-scalingo-18}"
 
 start "Install Odoo"
 

@@ -53,10 +53,10 @@ function install_odoo() {
   fi
   tar -zxf "${CACHE_DIR}/dist/odoo_${ODOO_VERSION}.latest.tar.gz" -C "${CACHE_DIR}/dist/odoo" --strip-components=1
   sed -i 's/python-ldap/#python-ldap/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
-  sed -i 's/ebaysdk==2.1.5/ebaysdk==2.2.0/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
-  sed -i 's/libsass==0.18.0/libsass==0.21.0/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
-  sed -i 's/MarkupSafe==1.1.0/MarkupSafe==2.0.1/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
-  sed -i 's/ofxparse==0.19/ofxparse==0.21/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
+  # sed -i 's/ebaysdk==2.1.5/ebaysdk==2.2.0/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
+  # sed -i 's/libsass==0.18.0/libsass==0.21.0/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
+  # sed -i 's/MarkupSafe==1.1.0/MarkupSafe==2.0.1/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
+  # sed -i 's/ofxparse==0.19/ofxparse==0.21/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
   cp -a "${CACHE_DIR}/dist/odoo/." "${BUILD_DIR}"
   finished
 }

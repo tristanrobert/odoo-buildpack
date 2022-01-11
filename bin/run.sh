@@ -3,6 +3,7 @@
 
 set -e
 
+export PYTHONPATH="/app:$PYTHONPATH"
 DB_ARGS=()
 DB_ARGS+=("--db_host")
 DB_ARGS+=("$DB_HOST")
