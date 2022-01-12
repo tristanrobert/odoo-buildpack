@@ -47,7 +47,8 @@ function install_odoo() {
     cd "${CACHE_DIR}/dist/odoo" || return
     git pull origin
   fi
-  cd "${CACHE_DIR}/dist/odoo" || return
+  sed -i 's/ebaysdk==2.1.5/ebaysdk==2.2.0/g' "${CACHE_DIR}/dist/odoo/requirements.txt" 
+  cd "${CACHE_DIR}/dist/odoo" || return 
   cp -a "${CACHE_DIR}/dist/odoo/." "${BUILD_DIR}"
   finished
 }
