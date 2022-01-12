@@ -1,6 +1,6 @@
 # odoo-buildpack
 
-Odoo buildpack
+[Odoo](https://odoo.com) buildpack
 
 ## Usage
 
