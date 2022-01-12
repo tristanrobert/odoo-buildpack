@@ -42,7 +42,7 @@ function install_odoo() {
   ODOO_VERSION="$1"
   step "Fetching odoo latest nightly ${ODOO_VERSION}"
   if [ ! -d "${CACHE_DIR}/dist/odoo" ]; then
-    git clone --progress --depth=1 https://github.com/odoo/odoo "${CACHE_DIR}/dist/odoo"
+    git clone --bare --depth=1 https://github.com/odoo/odoo "${CACHE_DIR}/dist/odoo"
   else
     cd "${CACHE_DIR}/dist/odoo" || return
     git pull origin
