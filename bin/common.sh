@@ -50,7 +50,7 @@ function install_odoo() {
   sed -i 's/ebaysdk==2.1.5/ebaysdk==2.2.0/g' "${CACHE_DIR}/dist/odoo/requirements.txt" 
   sed -i 's/libsass==0.18.0/libsass==0.21.0/g' "${CACHE_DIR}/dist/odoo/requirements.txt" 
   sed -i 's/MarkupSafe==1.1.0/MarkupSafe==2.0.1/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
-  sed -i 's/ofxparse==0.19/ofxparse==0.21/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
+  sed -i 's/ofxparse/#ofxparse/g' "${CACHE_DIR}/dist/odoo/requirements.txt"
   cd "${CACHE_DIR}/dist/odoo" || return 
   cp -a "${CACHE_DIR}/dist/odoo/." "${BUILD_DIR}"
   finished
