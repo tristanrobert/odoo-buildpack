@@ -4,6 +4,7 @@
   "logo": "https://www.odoo.com/brand/x1.png",
   "repository": "https://github.com/MTES-MCT/odoo-buildpack",
   "website": "https://odoo.com",
+  "stack": "scalingo-20",
   "env": {
     "BUILDPACK_URL": {
       "description": "Buildpack used to deploy Odoo",
